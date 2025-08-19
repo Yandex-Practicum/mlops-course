@@ -1,51 +1,116 @@
-# MLOps Course by Yandex Practicum
+!!! Базовое ревью !!!
 
-![MIT License](https://img.shields.io/badge/license-MIT-green)
-![GitHub repo size](https://img.shields.io/github/repo-size/Yandex-Practicum/mlops-course)
+1) Синтаксис
+Нет основных проблем: вызов вне функции, отсутствие отступа, опечатки
 
-## Осваивайте на практике инструменты и подходы MLOps для построения воспроизводимых и стабильных ML-систем.
+> datetime.datetime, pandas as pd, os - импортированы, но не используются.
 
-### О курсе
+Методы ML-библиотек вызываются правильно
 
-Этот репозиторий содержит практические задания к курсу по MLOps. Каждое задание помогает освоить ключевые инструменты и подходы — от управления зависимостями до мониторинга ML-сервисов в продакшне.
+> Здесь вроде нет ошибок.
 
-### Структура репозитория
+3) Стиль и читаемость кода
 
-Каждый урок — это отдельная папка:
-```
-├── lesson-01-uv-env/
-├── lesson-02-dependency-upgrade/
-├── ...
-├── LICENSE
-└── README.md
-```
+Код соответствует PEP8 и использует автоформаттеры (black, flake8 и т. д.)
 
-### Быстрый старт
+> Есть ошибки:
+PS C:\Users\test> flake8 C:\Users\test\Documents\GitHub\MLops\mlops-course\lesson-08-code-review
+C:\Users\test\Documents\GitHub\MLops\mlops-course\lesson-08-code-review\src\data.py:3:1: E302 expected 2 blank lines, found 1
+C:\Users\test\Documents\GitHub\MLops\mlops-course\lesson-08-code-review\src\data.py:6:1: E302 expected 2 blank lines, found 1
+C:\Users\test\Documents\GitHub\MLops\mlops-course\lesson-08-code-review\src\features.py:2:1: F401 'datetime.datetime' imported but unused
+C:\Users\test\Documents\GitHub\MLops\mlops-course\lesson-08-code-review\src\features.py:9:46: W292 no newline at end of file
+C:\Users\test\Documents\GitHub\MLops\mlops-course\lesson-08-code-review\src\main.py:1:1: F401 'os' imported but unused
+C:\Users\test\Documents\GitHub\MLops\mlops-course\lesson-08-code-review\src\main.py:2:1: F401 'pandas as pd' imported but unused
+C:\Users\test\Documents\GitHub\MLops\mlops-course\lesson-08-code-review\src\main.py:21:26: W292 no newline at end of file
+C:\Users\test\Documents\GitHub\MLops\mlops-course\lesson-08-code-review\src\model.py:12:37: W292 no newline at end of file
+C:\Users\test\Documents\GitHub\MLops\mlops-course\lesson-08-code-review\tests\test_data.py:1:1: F401 'pandas as pd' imported but unused
+C:\Users\test\Documents\GitHub\MLops\mlops-course\lesson-08-code-review\tests\test_data.py:4:1: E302 expected 2 blank lines, found 1
 
-Клонируйте только нужную папку с уроком с помощью sparse-checkout, не загружая весь репозиторий:
+Названия переменных, функций и классов понятны и отражают суть
 
-```bash
-git clone --filter=blob:none --sparse https://github.com/Yandex-Practicum/mlops-course.git
-cd mlops-course
-git sparse-checkout set <lesson-folder-name>  # например: lesson-01-uv-env
-```
-Если объём не критичен, можно просто клонировать весь репозиторий:
+> Нет описания , нет комментариев, суть непонятна.
 
-```bash
-git clone https://github.com/Yandex-Practicum/mlops-course.git
-cd mlops-course/lesson-01-uv-env # или другой нужный урок
-```
+Логика разбита на понятные блоки: по функциям, классам, модулям
 
-### Вклад и обратная связь
+> Разбито на 3 функции - загрузка и обработка данных, обучение модеди, оценка.
 
-Вы можете создавать [Issues](https://github.com/Yandex-Practicum/mlops-course/issues) или присылать [Pull Requests](https://github.com/Yandex-Practicum/mlops-course/pulls), если находите ошибки или хотите улучшить задания. Мы ценим вашу обратную связь!
+Модули изолированы и имеют чёткую ответственность
 
+>Модули не изолированы, не выделены в отдельные библиотеки.
 
-### Лицензия
+Нет дублирования кода (соблюдается принцип DRY)
+Функции и классы выполняют одну задачу (соблюдается принцип SRP)
 
-Проект распространяется под лицензией [MIT License](LICENSE).
+3. Документация
+Описана установка, запуск, форматы данных и зависимостей
 
+> Документация отсутствует. Есть только команда запуска.
 
-### Авторы
+Есть примеры использования, они актуальны
 
-Разработано командой [Яндекс Практикум](https://practicum.yandex.ru) при участии специалистов из индустрии.
+> Аналогично.
+
+Информация структурирована и соответствует реальному поведению кода
+
+> Аналогично.
+
+В документации нет устаревших или неверных данных
+
+> Аналогично.
+
+1. Данные
+Предобработка данных вынесена в отдельный модуль
+
+> Раздел кода есть, но ссылается на несуществующие данные в переменной DATA_PATH.
+
+Логика предобработки покрыта тестами и валидацией
+
+> Тесты и валидация в разделе кода отсутствуют. Предобработка не реализована.
+
+Используется статическая типизация
+
+> Статическая типизация используется только в определении времени в features.py
+
+Реализована обработка пропусков и аномалий
+
+> Используется в определении времени в features.py. Скорее всего методом среднего значения.
+
+2.Архитектура модели
+
+Зафиксирован random_state для воспроизводимости результатов
+
+> Не описано в models.py
+
+Гиперпараметры подобраны обоснованно (GridSearchCV и т. д.), а не случайно
+
+> Не подобраны
+
+Параметры модели и версии экспериментов сохранены
+
+> Нет
+
+Зависимости зафиксированы
+
+> В файле requirements. Но хорошо бы еще включить точную версию питона или хотя бы границы версий.
+
+3.Метрики качества
+
+Метрики используются корректно: вызваны с нужными аргументами и интерпретируются правильно
+
+> Метрики не определены, если только это не 2 метрики в score из main.py. но и они без правильной интерпретации и без нужных аргументов.
+
+Реализована обработка граничных и аномальных случаев данных
+
+> Не предусмотрено
+
+Метрики устойчивы к типам входных данных и не вызывают ошибок выполнения
+
+> Типы входных данных не определены, могут быть ошибки выполнения из-за несовпадения типов.
+
+Результаты метрик можно воспроизвести: известно, на каких данных и с какими параметрами они были получены
+
+> Нет, путь к файлу с данными указан неверно.
+
+Метрики зафиксированы в артефакте (json, yaml и т. п.) рядом с моделью и указывают, на каких данных и с какими параметрами они получены
+
+> Явно не зафиксированы, используются в коде произвольно.
