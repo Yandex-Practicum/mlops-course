@@ -1,0 +1,10 @@
+[project]
+name = "lesson-05-modulation-isolation"
+version = "0.1.0"
+description = "Demo project for modulation and isolation lesson"
+readme = "README.md"
+requires-python = "==3.11.*"
+dependencies = [
+    "pandas==2.3.3",
+    "scikit-learn==1.8.0",
+]
