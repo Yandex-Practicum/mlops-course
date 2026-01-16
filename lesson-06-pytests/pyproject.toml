@@ -1,0 +1,10 @@
+[project]
+name = "lesson-06-pytests"
+version = "0.1.0"
+description = "Demo project for python code test lesson"
+readme = "README.md"
+requires-python = "==3.11.*"
+dependencies = [
+    "numpy==1.23.2",
+    "pandas==1.4.0",
+]
